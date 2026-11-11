@@ -9,7 +9,7 @@ import org.gamein.marketservergamein2022.core.dto.result.factory.BuildingDetails
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.BuildingType;
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.LineStatus;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

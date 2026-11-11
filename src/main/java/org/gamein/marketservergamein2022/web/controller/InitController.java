@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -66,14 +66,35 @@ public class InitController {
             if (!isChooseRegionFinished)
                 throw new BadRequestException("برو سر انتخاب زمینت بچه :)");
 
-            AuthInfoResponse result = RestUtil.getAuthInfo(token, authUrl);
-            if (result.getTeamId() == null) {
+            Long teamId = null;
+            Long userId = null;
+            try {
+                teamId = org.gamein.marketservergamein2022.infrastructure.util.JwtUtils.getTeamIdFromToken(token);
+                userId = org.gamein.marketservergamein2022.infrastructure.util.JwtUtils.getUserIdFromToken(token);
+            } catch (Exception ignored) {}
+
+            if (teamId == null) {
+                try {
+                    AuthInfoResponse result = RestUtil.getAuthInfo(token, authUrl);
+                    teamId = result.getTeamId();
+                    userId = result.getUserId();
+                } catch (Exception ex) {
+                    if (userId != null) {
+                        var user = authService.getUserById(userId);
+                        if (user != null && user.getTeam() != null) {
+                            teamId = user.getTeam().getId();
+                        }
+                    }
+                }
+            }
+
+            if (teamId == null) {
                 throw new InvalidTokenException("User does not have a team!");
             }
 
-            logger.info("userId: " + result.getUserId().toString() +
-                    " --- teamId: " + result.getTeamId());
-            return result.getTeamId();
+            logger.info("userId: " + (userId != null ? userId.toString() : "null") +
+                    " --- teamId: " + teamId);
+            return teamId;
         } catch (RestClientException | BadRequestException e) {
             throw new InvalidTokenException("Invalid token!");
         }
@@ -93,17 +114,37 @@ public class InitController {
                             .getSeconds() - time.getStoppedTimeSeconds() > time.getChooseRegionDuration();
             if (!isChooseRegionFinished)
                 throw new BadRequestException("برو سر انتخاب زمینت بچه :)");
-            AuthInfoResponse result = RestUtil.getAuthInfo(token, authUrl);
-            if (result.getTeamId() == null) {
+            Long teamId = null;
+            Long userId = null;
+            try {
+                teamId = org.gamein.marketservergamein2022.infrastructure.util.JwtUtils.getTeamIdFromToken(token);
+                userId = org.gamein.marketservergamein2022.infrastructure.util.JwtUtils.getUserIdFromToken(token);
+            } catch (Exception ignored) {}
+
+            if (teamId == null) {
+                try {
+                    AuthInfoResponse result = RestUtil.getAuthInfo(token, authUrl);
+                    teamId = result.getTeamId();
+                    userId = result.getUserId();
+                } catch (Exception ex) {
+                    if (userId != null) {
+                        var user = authService.getUserById(userId);
+                        if (user != null && user.getTeam() != null) {
+                            teamId = user.getTeam().getId();
+                        }
+                    }
+                }
+            }
+
+            if (teamId == null || userId == null) {
                 throw new InvalidTokenException("User does not have a team!");
             }
 
-            logger.info("userId: " + result.getUserId().toString() +
-                    " --- teamId: " + result.getTeamId());
+            logger.info("userId: " + userId + " --- teamId: " + teamId);
 
             return new AuthInfo(
-                    authService.getUserById(result.getUserId()),
-                    authService.getTeamById(result.getTeamId())
+                    authService.getUserById(userId),
+                    authService.getTeamById(teamId)
             );
         } catch (RestClientException e) {
             throw new InvalidTokenException("Invalid token!");

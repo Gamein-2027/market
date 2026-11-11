@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.gamein.marketservergamein2022.core.dto.result.LogDTO;
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.LogType;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 

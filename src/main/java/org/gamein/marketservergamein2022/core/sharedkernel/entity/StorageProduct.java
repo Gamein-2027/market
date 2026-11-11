@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.gamein.marketservergamein2022.core.dto.result.factory.StorageProductDTO;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Entity

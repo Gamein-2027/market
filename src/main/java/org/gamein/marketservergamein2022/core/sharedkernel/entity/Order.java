@@ -8,7 +8,7 @@ import org.gamein.marketservergamein2022.core.dto.result.market.OrderDTO;
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.OrderType;
 import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 import static java.lang.Math.abs;

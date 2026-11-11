@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.gamein.marketservergamein2022.core.dto.result.market.FinalProductSellOrderDTO;
 import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 

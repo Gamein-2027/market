@@ -11,7 +11,7 @@ import org.gamein.marketservergamein2022.core.sharedkernel.enums.ProductGroup;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

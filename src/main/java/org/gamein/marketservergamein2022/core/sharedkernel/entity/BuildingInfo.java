@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.BuildingType;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Entity

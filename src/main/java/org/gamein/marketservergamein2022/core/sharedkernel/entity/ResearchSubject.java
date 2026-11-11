@@ -9,7 +9,7 @@ import org.gamein.marketservergamein2022.core.dto.result.factory.ResearchSubject
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.BuildingType;
 import org.gamein.marketservergamein2022.core.sharedkernel.enums.ProductGroup;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Getter

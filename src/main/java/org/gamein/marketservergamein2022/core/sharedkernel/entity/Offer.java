@@ -10,7 +10,7 @@ import org.gamein.marketservergamein2022.infrastructure.util.ShippingInfo;
 import org.gamein.marketservergamein2022.infrastructure.util.TeamUtil;
 import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 
